@@ -60,16 +60,41 @@ public class LinkedList<T> {
      * @param index the index, counted from the first element, of the element that must be returned.
      */
     public T get(int index) {
-        Node node = head;
-        if (index == 0) {
-            return node.value;
-        } else if (index > 0 && index <= size()) {
-            while (--index > 0) {
-                node = node.next;
+        if (index >= 0 && index <= size()) {
+            if (index <= size() / 2) {
+                return getFromStart(index);
+            } else {
+                return getFromEnd(index);
             }
         } else {
             throw new IllegalArgumentException("That is not a valid index in the LinkedList");
         }
+    }
+
+    public T getFromEnd(int index) {
+        Node node = head;
+
+        if (index == 0) {
+            return node.value;
+        }
+
+        while (++index < size()) {
+            node = node.prev;
+        }
+
+        return node.value;
+    }
+
+    public T getFromStart(int index) {
+        Node node = head;
+        if (index == 0) {
+            return node.value;
+        }
+
+        while (--index > 0) {
+            node = node.next;
+        }
+
         return node.value;
     }
 
@@ -117,6 +142,24 @@ public class LinkedList<T> {
      */
     public int size() {
         return size;
+    }
+    
+    public int occurrences(T valueToCount) {
+        int occurrences = 0;
+        Node node = first;
+        if (size() > 0) {
+            do {
+                if (node.value.equals(valueToCount)) {
+                    occurrences++;
+                }
+
+                node = node.next;
+            } while (node != null && !node.equals(head));
+        } else {
+            return 0;
+        }
+
+        return occurrences;
     }
 
 }
