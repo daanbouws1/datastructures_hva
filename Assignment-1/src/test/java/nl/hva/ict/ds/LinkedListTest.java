@@ -132,4 +132,35 @@ public class LinkedListTest {
     public void cantAddNullNode() {
         testList.add(null);
     }
+    
+    @Test
+    public void optimizedGetWorks() {
+        for (int i = 0; i < 100; i++) {
+            testList.add(String.valueOf(i));
+        }
+
+        assertEquals("79", testList.get(79));
+    }
+
+    @Test
+    public void countOccurencesInListWithOneItem() {
+        testList.add("one");
+
+        assertEquals(1, testList.occurrences("one"));
+    }
+
+    @Test
+    public void countOccurences() {
+        for (int i = 0; i < 100; i++) {
+            testList.add("one");
+        }
+        testList.add("two");
+
+        assertEquals(100, testList.occurrences("one"));
+    }
+
+    @Test
+    public void occurencesCanHandleEmptyList() {
+        assertEquals(0, testList.occurrences("one"));
+    }
 }
