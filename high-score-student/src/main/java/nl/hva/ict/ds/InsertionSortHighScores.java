@@ -1,29 +1,20 @@
 package nl.hva.ict.ds;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class InsertionSortHighScores implements HighScoreList {
     private List<Player> players = new ArrayList<>();
+    private InsertionSorter insertionSorter = new InsertionSorter();
 
     @Override
     public void add(Player player) {
         int n = players.size();
-        if (n == 0) {
-            players.add(player);
-        } else {
-            for (int i = 0; i < n; i++) {
-                if (player.getHighScore() > players.get(i).getHighScore()) {
-                    players.add(i, player);
-                    break;
-                } else {
-                    players.add(player);
-                    break;
-                }
-            }
+        players.add(player);
+        if (n > 0) {
+            insertionSorter.sortPlayers(players);
         }
     }
 
