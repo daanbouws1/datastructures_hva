@@ -25,9 +25,10 @@ public class HighScoreListTest {
     public void setup() {
         // Here you should select your implementation to be tested.
 //        highScores = new DummyHighScores();
-//        highScores = new InsertionSortHighScores();
+        highScores = new InsertionSortHighScores();
+//        highScores = new SelectionSortHighScores();
 //        highScores = new BucketSortHighScores();
-        highScores = new PriorityQueueHighScores();
+//        highScores = new PriorityQueueHighScores();
 
         nearlyHeadlessNick = new Player("Nicholas", "de Mimsy-Porpington", getHighScore() % 200);
         dumbledore = new Player("Albus", "Dumbledore", nearlyHeadlessNick.getHighScore() * 1000);
@@ -74,7 +75,10 @@ public class HighScoreListTest {
         Player harry = new Player("Harry", "Potter", dumbledore.getHighScore() + 1);
         highScores.add(harry);
 
-        assertEquals(harry, highScores.getHighScores(1).get(0));
+        for (Player player: highScores.getHighScores(10)) {
+            System.out.println(player.getHighScore());
+        }
+        assertEquals(harry, highScores.getHighScores(2).get(0));
     }
 
     // Extra unit tests go here
@@ -90,15 +94,16 @@ public class HighScoreListTest {
 
     @Test
     public void highScoresAreSorted() {
-        highScores.add(dumbledore);
-        highScores.add(nearlyHeadlessNick);
-        Player harry = new Player("Harry", "Potter", dumbledore.getHighScore() + 1);
-        highScores.add(harry);
+        for (int i = 0; i < 50; i++) {
+            Player random = new Player("random", "random", (long) (Math.random() * 10000));
+            highScores.add(random);
+        }
 
-        List<Player> sortedHighscores = highScores.getHighScores(10);
+        List<Player> sortedHighscores = highScores.getHighScores(50);
 
         int i = 0;
         for(Player player: sortedHighscores) {
+            System.out.println(player.getHighScore());
             if (i > 0) {
                 assertTrue(player.getHighScore() <= sortedHighscores.get(i - 1).getHighScore());
             }
