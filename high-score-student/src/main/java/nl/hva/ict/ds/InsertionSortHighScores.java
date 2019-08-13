@@ -14,7 +14,7 @@ public class InsertionSortHighScores implements HighScoreList {
         int n = players.size();
         players.add(player);
         if (n > 0) {
-            insertionSorter.sortPlayers(players);
+            players = insertionSorter.sortPlayers(players);
         }
     }
 
