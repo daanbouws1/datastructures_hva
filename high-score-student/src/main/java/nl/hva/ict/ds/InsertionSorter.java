@@ -12,7 +12,7 @@ public class InsertionSorter {
         players.remove(players.size() - 1);
         for (int i = players.size() - 1; i >= 0; i--) {
             if (unsortedPlayer.getHighScore() > players.get(i).getHighScore()) {
-                players.add(i, unsortedPlayer);
+                players.add(i , unsortedPlayer);
                 break;
             }
         }
